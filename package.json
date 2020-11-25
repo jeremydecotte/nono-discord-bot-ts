@@ -1,0 +1,28 @@
+{
+  "name": "nono-discord-bot-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "watch": "tsc -p tsconfig.json -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremydecotte/nono-discord-bot-ts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremydecotte/nono-discord-bot-ts/issues"
+  },
+  "homepage": "https://github.com/jeremydecotte/nono-discord-bot-ts#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "discord.js": "^12.5.0",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^4.1.2"
+  }
+}
