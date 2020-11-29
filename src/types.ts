@@ -1,7 +1,8 @@
 const TYPES = {
     IBotService: Symbol.for("IBot"),
-    IConfig: Symbol.for("ConfigurationService"),
+    IConfigurationService: Symbol.for("IConfigurationService"),
     IMessageManager: Symbol.for("IMessageManager"),
+    IReminderManager: Symbol.for("IReminderManager"),
     Client: Symbol.for("Client"),
 };
 

@@ -1,21 +1,51 @@
 import { injectable } from "inversify";
-import { IConfig } from "../interfaces/IConfiguration";
+import { IConfigurationService } from "../interfaces/IConfigurationService";
 
 import config from "./../config.json";
+import path from "path";
+import fs from "fs";
+
+const dbPath: string = path.join(".", "db");
 
 @injectable()
-export class ConfigurationService implements IConfig {
-    Token: string;
+export class ConfigurationService implements IConfigurationService {
+
+    private _databases: any = {};
+    private _config: any;
 
     constructor() {
-        this.Token = config.token;
+        this._config = config;
+
+        this.LoadDatabases();
     }
+
     GetEnabledHandlers(): string[] {
-        return config.enabledMessagesHandlers;
+        return this.GetConfigValue("enabledMessagesHandlers");
     }
-    
-    GetData(): void {
-        throw new Error("Method not implemented.");
+
+    GetConfigValue(configName: string): any {
+        return this._config[configName];
+    }
+
+    GetData(dataName: string): any {
+        if (this._databases[dataName])
+        {
+            return this._databases[dataName];
+        }
+        return null;
+    }
+
+    public LoadDatabases(): void {
+        fs.readdir(dbPath, (err, files) => {
+            var dbFiles = files.filter((f) => path.extname(f) == ".db");
+            dbFiles.forEach((file) => {
+                fs.readFile(path.join(dbPath, file), (err, data) => {
+                    var dbName = path.basename(file, path.extname(file));
+                    this._databases[dbName] = data.toString().split("\n");
+                    console.log(`fichier "${file}" chargé.`);
+                });
+            });
+        });
     }
 
 }

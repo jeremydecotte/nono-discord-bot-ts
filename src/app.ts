@@ -1,4 +1,4 @@
-import { IBotService } from "./interfaces/IBot";
+import { IBotService } from "./interfaces/IBotService";
 import { container } from "./inversify.config";
 import { TYPES } from "./types";
 

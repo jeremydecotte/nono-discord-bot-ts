@@ -1,12 +1,14 @@
 import { Message } from "discord.js";
-import { IConfig } from "../../interfaces/IConfiguration";
+import { IConfigurationService } from "../../interfaces/IConfigurationService";
 import { IMessageHandler } from "../../interfaces/IMessageHandler";
 
 export abstract class BaseMessageHandler implements IMessageHandler {
-    private _configuration: IConfig;
+    protected _configuration: IConfigurationService;
+    protected _handlerConfiguration: any;
 
-    constructor(configuration: IConfig) {
+    constructor(configuration: IConfigurationService) {
         this._configuration = configuration;
+        this._handlerConfiguration = this._configuration.GetConfigValue("handlersConfiguration")[this.constructor.name];
     }
 
     abstract HandleMessage(message: Message): any;
@@ -14,5 +16,4 @@ export abstract class BaseMessageHandler implements IMessageHandler {
     IsEnabled(): boolean {
         return this._configuration.GetEnabledHandlers().some((h) => h == this.constructor.name);
     }
-
 }

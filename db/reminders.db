@@ -1,0 +1,3 @@
+ { "name": "Mêlée", "channel": "689106937551257679", "text": "C'est l'heure de la mêlée d'équipe, go Circuit !", "trigger": { "at": [ { "time": "08:59", "lastTriggeredDay": null } ], "days": [1, 2, 3, 4, 5] } }
+ { "name": "Saisie des temps", "channel": "689106937551257679", "text": "C'est bientôt fini le petit dej, pensez à saisir vos temps !", "trigger": { "at": [ { "time": "08:50", "lastTriggeredDay": null } ], "days": [1, 2, 3, 4, 5] } }
+ { "name": "Gouter", "channel": "689106937551257679", "text": "C'est l'heure du goûter !", "trigger": { "at": [ { "time": "16:30", "lastTriggeredDay": null } ], "days": [1, 2, 3, 4, 5] } }
