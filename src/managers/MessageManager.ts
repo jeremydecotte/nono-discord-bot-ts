@@ -27,10 +27,10 @@ export class MessageManager extends BaseManager implements IMessageManager {
 
     private Start(): void {
         // Charger dynamiquement les handlers qui sont activés.
-        this.Handlers.push(new HelloMessageHandler(this._configuration));
-        this.Handlers.push(new PreumsMessageHandler(this._configuration));
-        this.Handlers.push(new CommandsMessageHandler(this._configuration));
-        this.Handlers.push(new TooLongMessageHandler(this._configuration));
+        this.Handlers.push(new HelloMessageHandler(this._configuration, this._client));
+        this.Handlers.push(new PreumsMessageHandler(this._configuration, this._client));
+        this.Handlers.push(new CommandsMessageHandler(this._configuration, this._client));
+        this.Handlers.push(new TooLongMessageHandler(this._configuration, this._client));
     }
 
     HandleMessage(message: Message) {

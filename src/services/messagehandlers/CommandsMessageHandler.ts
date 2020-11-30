@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, User } from "discord.js";
 import { BaseMessageHandler } from "./BaseMessageHandler";
 import axios from "axios";
 import parser from "rss-parser";
@@ -66,19 +66,46 @@ export class CommandsMessageHandler extends BaseMessageHandler {
                         this._configuration.LoadDatabases();
                     }
                     break;
-                // case "pokemonize":
-                //     if (!isFromAdmin || !message.guild?.me?.hasPermission('MANAGE_NICKNAMES')) return;
+                case "pokemonize":
+                case "poke":
+                    if (!isFromAdmin || !message.guild?.me?.hasPermission('MANAGE_NICKNAMES')) return;
 
-                //     message.guild.members.fetch().then(members => {
-                //         members.forEach((m) => console.log(m.user.username + '//' + m.user.id));
-                //     });
-                //     // else {
-                //     //     message.member?.setNickname("Pikachu");
-                //     // }
+                    // Si on passe un paramètre, on cherche à retrouver l'utilisateur en paramètre
+                    if (args[0]) {
+                        const user = this.GetUserFromMention(args[0]);
 
-                //     break;
-            }            
+                        // On récupère l'utilisateur depuis la mention, si il existe on regarde si il existe dans la liste des membres (dans le cache).
+                        const membre = message.guild.members.cache.find((d) => d.id == user?.id);
+
+                        // Si il existe, on le renomme !
+                        if (membre) {
+                            const pokemons = this._configuration.GetData("pokemon");
+                            let index = Math.floor(Math.random() * pokemons.length);
+                            membre?.setNickname(pokemons[index]).then((e) => {
+                                message.channel.send(`Hey, salut ${e.user} !`);
+                            }, () => {
+                                message.author.send(`Désolé, je ne peux pas renommer "${user?.username}", car je n'ai pas les droits !`);
+                            });
+                        }
+                    }
+                    break;
+            }
         }
+    }
+
+
+    private GetUserFromMention(mention: string): User | undefined {
+        // The id is the first and only match found by the RegEx.
+        const matches = mention.match(/^<@!?(\d+)>$/);
+
+        // If supplied variable was not a mention, matches will be null instead of an array.
+        if (!matches) return;
+
+        // However the first element in the matches array will be the entire mention, not just the ID,
+        // so use index 1.
+        const id = matches[1];
+
+        return this._client.users.cache.get(id);
     }
 
 }
