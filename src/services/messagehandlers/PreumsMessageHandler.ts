@@ -32,25 +32,25 @@ export class PreumsMessageHandler extends BaseMessageHandler {
                     message.channel.messages.fetch(messageId).then((m) => {
                         switch (index) {
                             case 0:
-                                m.react("🥇");
+                                m.react("🥇").catch((err) => console.log(err));
                                 break;
                             case 1:
-                                m.react("🥈");
+                                m.react("🥈").catch((err) => console.log(err));
                                 break;
                             case 2:
-                                m.react("🥉");
+                                m.react("🥉").catch((err) => console.log(err));
                                 break;
                             case 3:
-                                m.react("🚜");
+                                m.react("🚜").catch((err) => console.log(err));
                                 break;
                             case 4:
-                                m.react("🐌");
+                                m.react("🐌").catch((err) => console.log(err));
                                 break;
                             case 5:
-                                m.react("☠️");
+                                m.react("☠️").catch((err) => console.log(err));
                                 break;
                             case 6:
-                                m.reply("https://tenor.com/view/bad-mauvais-oss177-tes-mauvais-gif-7523463");
+                                m.reply("https://tenor.com/view/bad-mauvais-oss177-tes-mauvais-gif-7523463").catch((err) => console.log(err));;
                                 break;
                         }
                     });
@@ -61,7 +61,7 @@ export class PreumsMessageHandler extends BaseMessageHandler {
         else if (this._handlerConfiguration.likeWordsStartButNotAWord.some((w: string) => message.content.toLocaleLowerCase().startsWith(w.toLocaleLowerCase()))) {
             // Si le jeu est lancé, on fait évidamment comprendre au mauvais joueur qu'il s'est trompé
             if (this._preumsOccurences.length > 0) {
-                message.react("⛔");
+                message.react("⛔").catch((err) => console.log(err));
             }
         }
     }

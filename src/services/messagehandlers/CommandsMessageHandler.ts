@@ -22,7 +22,7 @@ export class CommandsMessageHandler extends BaseMessageHandler {
             switch (command) {
                 case "chucknorris":
                     axios.get("https://api.chucknorris.io/jokes/random").then((response) => {
-                        message.reply(`tu reprendras bien un peu de chuck norris : ${response.data.value}`);
+                        message.reply(`tu reprendras bien un peu de chuck norris : ${response.data.value}`).catch((err) => console.log(err));
                     });
                     break;
                 case "kaamelott":
@@ -30,13 +30,13 @@ export class CommandsMessageHandler extends BaseMessageHandler {
                     if (datas) {
                         let index = (args && !isNaN(parseInt(args[0]))) ? parseInt(args[0]) : Math.floor(Math.random() * datas.length);
                         let citation = datas[index - 1];
-                        citation.split("|").forEach((c: string) => { message.reply(`(${index}/${datas.length}) - ${c.replace(/¤/g, "\n")}`); });
+                        citation.split("|").forEach((c: string) => { message.reply(`(${index}/${datas.length}) - ${c.replace(/¤/g, "\n")}`).catch((err) => console.log(err)); });
                     }
                     break;
                 case "gorafi":
                     let gorafiParser = new parser();
                     gorafiParser.parseURL("http://www.legorafi.fr/feed/", (err: any, feed: any) => {
-                        message.reply(`c'est tout chaud ça vient de sortir : ${feed.items[0].title} ${feed.items[0].link}`);
+                        message.reply(`c'est tout chaud ça vient de sortir : ${feed.items[0].title} ${feed.items[0].link}`).catch((err) => console.log(err));
                     });
                     break;
                 case "bourse":
@@ -57,7 +57,7 @@ export class CommandsMessageHandler extends BaseMessageHandler {
                             share.atos["value"] = html("div.container-instrument-quotation > div.instrument-quotation.bd-streaming-select-anim-update > span.quotation-last.bd-streaming-select-value-last").text().split("\n")[1].trim();
                             share.atos["percent"] = html("div.container-instrument-quotation > div.instrument-quotation.bd-streaming-select-anim-update > strong").text().split("\n")[1].trim();
 
-                            message.reply(`Le CAC40 est à **${share.cac.value}**pts (${share.cac.percent}). L'action ATOS est à **${share.atos.value}**€ (${share.atos.percent}).`);
+                            message.reply(`Le CAC40 est à **${share.cac.value}**pts (${share.cac.percent}). L'action ATOS est à **${share.atos.value}**€ (${share.atos.percent}).`).catch((err) => console.log(err));
                         });
                     break;
 
@@ -82,7 +82,7 @@ export class CommandsMessageHandler extends BaseMessageHandler {
                             const pokemons = this._configuration.GetData("pokemon");
                             let index = Math.floor(Math.random() * pokemons.length);
                             membre?.setNickname(pokemons[index]).then((e) => {
-                                message.channel.send(`Hey, salut ${e.user} !`);
+                                message.channel.send(`Hey, salut ${e.user} !`).catch((err) => console.log(err));
                             }, () => {
                                 message.author.send(`Désolé, je ne peux pas renommer "${user?.username}", car je n'ai pas les droits !`);
                             });

@@ -11,7 +11,7 @@ export class TooLongMessageHandler extends BaseMessageHandler {
 
         if (datas && message.content.length >= this._handlerConfiguration.length) {
             let index = Math.floor(Math.random() * datas.length);
-            setTimeout(() => message.channel.send(`${datas[index]}`), 2000);
+            setTimeout(() => message.channel.send(`${datas[index]}`).catch((err) => console.log(err)), 2000);
         }
     }
 }

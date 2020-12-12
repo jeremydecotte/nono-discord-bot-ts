@@ -11,7 +11,7 @@ export class HelloMessageHandler extends BaseMessageHandler {
             && this._handlerConfiguration.words.some((w: string) => message.content.toLocaleLowerCase().startsWith(w))
             && Math.floor(Math.random() * this._handlerConfiguration.randomizer) == 0) {
             let index = Math.floor(Math.random() * this._configuration.GetData("hello").length);
-            setTimeout(() => message.reply(`${this._configuration.GetData("hello")[index]}`), 2000);
+            setTimeout(() => message.reply(`${this._configuration.GetData("hello")[index]}`).catch((err) => console.log(err)), 2000);
         }
     }
 }
